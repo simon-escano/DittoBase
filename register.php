@@ -58,7 +58,9 @@ if (!empty($_POST)) {
         <main>
             <div class="card">
                 <section class="card-header">
-                    <div class="card-img-box"></div>
+                    <div class="card-img-box">
+                        <img src="./images/icon_register.png">
+                    </div>
                     <p class="card-title">REGISTER</p>
                 </section>
                 <section class="card-content">

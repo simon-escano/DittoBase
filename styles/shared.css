@@ -108,6 +108,7 @@ main {
 
 .card-header {
     display: flex;
+    gap: 4px;
 }
 
 .card-img-box {

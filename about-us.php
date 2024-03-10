@@ -36,7 +36,9 @@ require 'connect.php';
         <main>
             <div class="card">
                 <section class="card-header">
-                    <div class="card-img-box"></div>
+                    <div class="card-img-box">
+                        <img src="images/icon_about.png">
+                    </div>
                     <p class="card-title">ABOUT US</p>
                 </section>
                 <section class="card-content">

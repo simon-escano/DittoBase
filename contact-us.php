@@ -37,7 +37,9 @@ require 'connect.php';
             <div class="partition-v">
                 <div class="card">
                     <section class="card-header">
-                        <div class="card-img-box"></div>
+                        <div class="card-img-box">
+                            <img src="images/icon_mail.png">
+                        </div>
                         <p class="card-title">CONTACT US</p>
                     </section>
                     <section class="card-content">
@@ -50,7 +52,9 @@ require 'connect.php';
                 <div class="partition-h">
                     <div class="card">
                         <section class="card-header">
-                            <div class="card-img-box"></div>
+                            <div class="card-img-box">
+                                <img src="images/icon_gengar.png">
+                            </div>
                             <p class="card-title">MALT SOLON</p>
                         </section>
                         <section class="card-content">
@@ -64,7 +68,9 @@ require 'connect.php';
                     </div>
                     <div class="card">
                         <section class="card-header">
-                            <div class="card-img-box"></div>
+                            <div class="card-img-box">
+                                <img src="images/icon_pikachu.png">
+                            </div>
                             <p class="card-title">SIMON ESCAÑO</p>
                         </section>
                         <section class="card-content">
