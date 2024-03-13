@@ -1,5 +1,5 @@
 <?php
-require 'connect.php';
+require 'includes/connect.php';
 ?>
 
 <!DOCTYPE html>
@@ -45,11 +45,11 @@ require 'connect.php';
                     <form action="">
                         <div class="form-input">
                             <label for="username">Username</label>
-                            <input id="username" type="text">
+                            <input id="username" type="text" required>
                         </div>
                         <div class="form-input">
                             <label for="password">Password</label>
-                            <input id="password" type="password">
+                            <input id="password" type="password" required>
                         </div>
 
                         <input class="submit-button" id="login-button" type="submit" value="Login">

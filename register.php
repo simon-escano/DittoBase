@@ -1,5 +1,5 @@
 <?php
-require 'connect.php';
+require 'includes/connect.php';
 
 if (!empty($_POST)) {
     if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['region'], $_POST['username'], $_POST['password'])) {
@@ -11,7 +11,7 @@ if (!empty($_POST)) {
         $password = $_POST['password'];
 
         if (!empty($firstname) && !empty($lastname) && !empty($email) && !empty($region) && !empty($username) && !empty($password)) {
-            $insert = $db->prepare("INSERT INTO tblUser (firstname, lastname, email, region, username, password) VALUES (?, ?, ?, ?, ?, ?)");
+            $insert = $connection->prepare("INSERT INTO tblUserProfile (firstname, lastname, email, region, username, password) VALUES (?, ?, ?, ?, ?, ?)");
             $insert->bind_param('ssssss', $firstname, $lastname, $email, $region, $username, $password);
 
             if ($insert->execute()) {
