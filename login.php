@@ -1,5 +1,28 @@
 <?php
 require 'includes/connect.php';
+
+if (!empty($_POST)) {
+    if (isset($_POST['username'], $_POST['password'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        if (!empty($username) && !empty($password)) {
+
+            if ($result = $connection->query("SELECT username, password FROM tblUserAccount")) {
+                if ($result->num_rows) {
+                    while ($row = $result->fetch_object()) {
+                        echo ($row->username);
+                        echo ($row->password);
+                        if ($username == $row->username) {
+                            header('Location: index.php');
+                        }
+                    }
+                    $result->free();
+                }
+            }
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>

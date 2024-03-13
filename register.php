@@ -14,7 +14,10 @@ if (!empty($_POST)) {
             $insert = $connection->prepare("INSERT INTO tblUserProfile (firstname, lastname, email, region, username, password) VALUES (?, ?, ?, ?, ?, ?)");
             $insert->bind_param('ssssss', $firstname, $lastname, $email, $region, $username, $password);
 
-            if ($insert->execute()) {
+            $insert2 = $connection->prepare("INSERT INTO tblUserAccount (acctID, emailAdd, username, password) VALUES (?, ?, ?)");
+            $insert2->bind_param('sss', $email, $username, $password);
+
+            if ($insert->execute() && $insert2->execute()) {
                 header('Location: login.php');
                 die();
             }
