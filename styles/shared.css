@@ -218,3 +218,12 @@ header, footer {
     border: var(--outline);
     box-shadow: var(--shadow-emboss);
 }
+
+.err-msg {
+    display: flex;
+    background-color: red;
+    color: white;
+    padding: 4px 8px;
+    border: var(--outline);
+    box-shadow: var(--shadow-emboss);
+}

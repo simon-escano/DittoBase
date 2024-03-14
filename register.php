@@ -1,31 +1,5 @@
 <?php
 require 'includes/connect.php';
-
-if (!empty($_POST)) {
-    if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['region'], $_POST['username'], $_POST['password'])) {
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
-        $email = $_POST['email'];
-        $region = $_POST['region'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-
-        if (!empty($firstname) && !empty($lastname) && !empty($email) && !empty($region) && !empty($username) && !empty($password)) {
-            
-            $insert = $connection->prepare("INSERT INTO tblUserProfile (firstname, lastname, email, region, username, password) VALUES (?, ?, ?, ?, ?, ?)");
-            $insert->bind_param('ssssss', $firstname, $lastname, $email, $region, $username, $password);
-
-            $insert2 = $connection->prepare("INSERT INTO tblUserAccount (emailAdd, username, password) VALUES (?, ?, ?)");
-            $insert2->bind_param('sss', $email, $username, $password);
-
-            if ($insert->execute() && $insert2->execute()) {
-                header('Location: login.php');
-                die();
-            }
-        }
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -104,6 +78,49 @@ if (!empty($_POST)) {
                             <label for="password">Password</label>
                             <input id="password" name="password" type="password" required>
                         </div>
+
+                        <?php
+                            if (!empty($_POST)) {
+                                if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['region'], $_POST['username'], $_POST['password'])) {
+                                    $firstname = $_POST['firstname'];
+                                    $lastname = $_POST['lastname'];
+                                    $email = $_POST['email'];
+                                    $region = $_POST['region'];
+                                    $username = $_POST['username'];
+                                    $password = $_POST['password'];
+                            
+                                    if (!empty($firstname) && !empty($lastname) && !empty($email) && !empty($region) && !empty($username) && !empty($password)) {
+                                        $userExists = false;
+                                        if ($result = $connection->query("SELECT username FROM tblUserProfile")) {
+                                            if ($result->num_rows) {
+                                                while ($row = $result->fetch_object()) {
+                                                    if ($username == $row->username) {
+                                                        $userExists = true;
+                                                        break;
+                                                    }
+                                                }
+                                                $result->free();
+                                            }
+                                        }
+                            
+                                        if (!$userExists) {
+                                            $insert = $connection->prepare("INSERT INTO tblUserProfile (firstname, lastname, email, region, username, password) VALUES (?, ?, ?, ?, ?, ?)");
+                                            $insert->bind_param('ssssss', $firstname, $lastname, $email, $region, $username, $password);
+                                
+                                            $insert2 = $connection->prepare("INSERT INTO tblUserAccount (emailAdd, username, password) VALUES (?, ?, ?)");
+                                            $insert2->bind_param('sss', $email, $username, $password);
+                                
+                                            if ($insert->execute() && $insert2->execute()) {
+                                                header('Location: login.php');
+                                                die();
+                                            }
+                                        } else {
+                                            echo "<div class='err-msg'>Someone already has that username brah</div>";
+                                        }
+                                    }
+                                }
+                            }
+                        ?>
 
                         <input class="submit-button" id="register-button" name="" type="submit" value="Register">
                     </form>

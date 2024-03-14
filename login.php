@@ -1,28 +1,5 @@
 <?php
 require 'includes/connect.php';
-
-if (!empty($_POST)) {
-    if (isset($_POST['username'], $_POST['password'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        if (!empty($username) && !empty($password)) {
-
-            if ($result = $connection->query("SELECT username, password FROM tblUserAccount")) {
-                if ($result->num_rows) {
-                    while ($row = $result->fetch_object()) {
-                        echo ($row->username);
-                        echo ($row->password);
-                        if ($username == $row->username) {
-                            header('Location: index.php');
-                        }
-                    }
-                    $result->free();
-                }
-            }
-        }
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +42,7 @@ if (!empty($_POST)) {
                     <p class="card-title">LOGIN</p>
                 </section>
                 <section class="card-content">
-                    <form action="">
+                    <form action="" method="post">
                         <div class="form-input">
                             <label for="username">Username</label>
                             <input id="username" name="username" type="text" required>
@@ -74,6 +51,29 @@ if (!empty($_POST)) {
                             <label for="password">Password</label>
                             <input id="password" name="password" type="password" required>
                         </div>
+
+                        <?php
+                            if (!empty($_POST)) {
+                                if (isset($_POST['username'], $_POST['password'])) {
+                                    $username = $_POST['username'];
+                                    $password = $_POST['password'];
+                                    if (!empty($username) && !empty($password)) {
+                            
+                                        if ($result = $connection->query("SELECT username, password FROM tblUserAccount")) {
+                                            if ($result->num_rows) {
+                                                while ($row = $result->fetch_object()) {
+                                                    if ($username == $row->username && $password == $row->password) {
+                                                        header('Location: index.php');
+                                                    }
+                                                }
+                                                echo '<div class="err-msg">Incorrect username or password brah</div>';
+                                                $result->free();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        ?>
 
                         <input class="submit-button" id="login-button" type="submit" value="Login">
                     </form>
