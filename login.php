@@ -66,7 +66,7 @@ require 'includes/connect.php';
                                                         header('Location: index.php');
                                                     }
                                                 }
-                                                echo '<div class="err-msg">Incorrect username or password, Brah</div>';
+                                                echo '<div class="err-msg">Incorrect username or password, Brah!</div>';
                                                 $result->free();
                                             }
                                         }

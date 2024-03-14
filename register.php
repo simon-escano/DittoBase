@@ -90,12 +90,16 @@ require 'includes/connect.php';
                                     $password = $_POST['password'];
                             
                                     if (!empty($firstname) && !empty($lastname) && !empty($email) && !empty($region) && !empty($username) && !empty($password)) {
-                                        $userExists = false;
-                                        if ($result = $connection->query("SELECT username FROM tblUserProfile")) {
+                                        $err = null;
+                                        if ($result = $connection->query("SELECT email, username FROM tblUserProfile")) {
                                             if ($result->num_rows) {
                                                 while ($row = $result->fetch_object()) {
+                                                    if ($email == $row->email) {
+                                                        $err = "Someone already has that email, Brah!";
+                                                        break;
+                                                    }
                                                     if ($username == $row->username) {
-                                                        $userExists = true;
+                                                        $err = "Someone already has that username, Brah!";
                                                         break;
                                                     }
                                                 }
@@ -103,7 +107,7 @@ require 'includes/connect.php';
                                             }
                                         }
                             
-                                        if (!$userExists) {
+                                        if (!$err) {
                                             $insert = $connection->prepare("INSERT INTO tblUserProfile (firstname, lastname, email, region, username, password) VALUES (?, ?, ?, ?, ?, ?)");
                                             $insert->bind_param('ssssss', $firstname, $lastname, $email, $region, $username, $password);
                                 
@@ -115,7 +119,7 @@ require 'includes/connect.php';
                                                 die();
                                             }
                                         } else {
-                                            echo "<div class='err-msg'>Someone already has that username, Brah</div>";
+                                            echo "<div class='err-msg'>" . $err . "</div>";
                                         }
                                     }
                                 }
