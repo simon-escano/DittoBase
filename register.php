@@ -11,6 +11,7 @@ if (!empty($_POST)) {
         $password = $_POST['password'];
 
         if (!empty($firstname) && !empty($lastname) && !empty($email) && !empty($region) && !empty($username) && !empty($password)) {
+            
             $insert = $connection->prepare("INSERT INTO tblUserProfile (firstname, lastname, email, region, username, password) VALUES (?, ?, ?, ?, ?, ?)");
             $insert->bind_param('ssssss', $firstname, $lastname, $email, $region, $username, $password);
 
