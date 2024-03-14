@@ -115,7 +115,7 @@ require 'includes/connect.php';
                                                 die();
                                             }
                                         } else {
-                                            echo "<div class='err-msg'>Someone already has that username brah</div>";
+                                            echo "<div class='err-msg'>Someone already has that username, Brah</div>";
                                         }
                                     }
                                 }
